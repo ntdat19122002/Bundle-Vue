@@ -2,7 +2,7 @@
   <header>
     <div class="menu">
       <div class="logo">
-        <img src="" alt="">
+        <a href="/"><img src="../assets/images/logo/logo.png" alt="asdf"></a>
       </div>
       <div class="navbar">
         <ul>
@@ -31,60 +31,60 @@
     height: 56px;
     padding: 8px 16px;
     box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%) !important;
-}
+  }
 
-header .menu{
+  header .menu{
     display: flex;
     margin: 0 330px !important;
     padding: 0 15px;
-}
+  }
 
-.menu .logo img{
+  .menu .logo img{
     margin-right: 24px;
-}
+  }
 
-.menu .navbar{
+  .menu .navbar{
     display: flex;
     justify-items: center;
     align-items: center;
-}
+  }
 
-.menu .navbar ul{
+  .menu .navbar ul{
     display: flex;
-}
+  }
 
-.navbar .nav-item{
+  .navbar .nav-item{
     padding: 8px;
-}
+  }
 
-.navbar .nav-item:nth-child(5){
+  .navbar .nav-item:nth-child(5){
     margin: 0 16px;
-}
-.navbar .count-item{
+  }
+  .navbar .count-item{
     position: absolute;
     font-size: 13px;
     padding: 4px;
     top: 12px;
     margin-left: 2px;
-}
+  }
 
-.navbar .nav-item:nth-child(6){
+  .navbar .nav-item:nth-child(6){
     margin-left: 316px;
-}
+  }
 
-.navbar .nav-item a{
+  .navbar .nav-item a{
     color: rgba(0, 0, 0, 0.5);
-}
+  }
 
 
-.menu .contact{
-    float: right;
-    display: flex;
-    align-items: center;
-}
+  .menu .contact{
+      float: right;
+      display: flex;
+      align-items: center;
+  }
 
-.contact a{
-    margin-left: 24px;
-    padding: 10px 12px;
-}
+  .contact a{
+      margin-left: 24px;
+      padding: 10px 12px;
+  }
 </style>

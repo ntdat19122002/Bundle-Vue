@@ -1,6 +1,6 @@
 <template lang="">
     <div>
-        
+        tier
     </div>
 </template>
 <script>
