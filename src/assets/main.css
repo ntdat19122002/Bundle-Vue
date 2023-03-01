@@ -1,0 +1,31 @@
+:root{
+  --mini-button: #3aadaa;
+}
+
+.mx-4{
+  margin-left: 4px;
+  margin-right: 4px;
+}
+.flex{
+  display: flex;
+}
+
+.mini-button{
+  border: 1px;
+  border-radius: 4px;
+  color: white;
+  background-color: var(--mini-button);
+}
+
+.pp-button{
+  padding: 10px 12px;
+  border: 1px;
+  border-radius: 4px;
+  color: white;
+  background-color: #7c6576;
+}
+
+.pagination-button{
+  padding: 10px 12px;
+  border: 1px solid #cecdcd;
+}
