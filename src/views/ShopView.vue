@@ -1,8 +1,15 @@
 <template>
-  <div class="shop">
-    <h1>This is an shop page</h1>
-  </div>
+  <search/>
 </template>
 
+<script>
+import Search from '../components/Search.vue'
+export default {
+  components: { Search },
+
+}
+</script>
+
 <style>
+
 </style>
