@@ -6,10 +6,10 @@
       </div>
       <div class="navbar">
         <ul>
-          <li class="nav-item"><a href="">Home</a></li>
-          <li class="nav-item"><a href="">Shop</a></li>
-          <li class="nav-item"><a href="">Contact Us</a></li>
-          <li class="nav-item"><a href="">Test menu</a></li>
+          <li class="nav-item"><router-link :to="{name:'home'}">Home</router-link></li>
+          <li class="nav-item"><router-link :to="{name:'shop'}">Shop</router-link></li>
+          <li class="nav-item"><router-link :to="{name:'home'}">Contact Us</router-link></li>
+          <li class="nav-item"><router-link :to="{name:'home'}">Test menu</router-link></li>
           <li class="nav-item">
             <a href="">
               <i class="fa fa-shopping-cart"></i>

@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
+import ShopView from '../views/ShopView.vue'
+import NotFound from '../views/NotFound.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -12,7 +14,7 @@ const router = createRouter({
     {
       path: '/shop',
       name: 'shop',
-      component: () => import('../views/ShopView.vue')
+      component: ShopView
     },
     {
       path: '/shop/:id',
@@ -34,6 +36,11 @@ const router = createRouter({
       name: 'cart',
       component: () => import('../views/CartView.vue')
     },
+    {
+      path: '/:catchAll(.*)',
+      name: 'NotFound',
+      component: NotFound
+    }
   ]
 })
 
