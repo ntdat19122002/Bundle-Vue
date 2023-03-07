@@ -1,28 +1,29 @@
 <template lang="">
     <div>
-      alo
-      {{ id }}
+      Product/{{ product.name }}
     </div>
+    <img :src="'data:image/png;base64,'+product.image" alt="">
+    
 </template>
 <script>
+import { ref } from 'vue';
 export default {
   props:['id'],
   setup(props){
-    // const product = ref({})
-    // const load = async ()=>{
-    //   // try{
-        console.log(props.id);
-  //     //   let data = await fetch('https://odoo.website/bundle/api/'+props.id)
-  //     //                     .then(res => res.json())
-  //     //   product.value = data.products
-  //     // }
-  //     // catch(err){
-  //     //   console.log(err.meassage);
-  //     // }
-  //   }
-  //   load()
+    const product = ref(null)
+    const load = async ()=>{
+      try{
+        let data = await fetch('https://odoo.website/bundle/api/'+props.id)
+                          .then(res => res.json())
+        product.value = data
+      }
+      catch(err){
+        console.log(err.meassage);
+      }
+    }
+    load()
 
-  //   return {load,product}
+    return {load,product}
   }
 }
 </script>

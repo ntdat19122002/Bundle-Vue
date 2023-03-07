@@ -1,18 +1,13 @@
 <template>
   <div class="nav-search">
         <div class="search mx-4">
-            <input type="text" name="" id="" placeholder="Search...">
+            <input type="text" name="" id="" placeholder="Search..." class="thin-border">
             <div class="mini-button search-button">
                 <i class="fa fa-search"></i>
             </div>
         </div>
         <div class="currency price-list pp-button mx-4">Public Pricelist</div>
-        <div class="pagination mx-4 flex">
-            <div class="pagination-button">Prev</div>
-            <div class="pagination-button">1</div>
-            <div class="pagination-button">2</div>
-            <div class="pagination-button">Next</div>
-        </div>
+        <Pagination/>
         <div class="type mx-4">
             <i class="fas fa-th-large pp-button"></i><i class="fa-sharp fa-solid fa-list-ul pp-button"></i>
         </div>
@@ -21,7 +16,9 @@
 </template>
 
 <script>
+import Pagination from './Pagination.vue'
 export default {
+  components: { Pagination },
 
 }
 </script>
@@ -52,8 +49,8 @@ export default {
 
 .search .search-button{
   position: absolute;
-  width: 40px;
-  height: 40px;
+  width: 38px;
+  height: 38px;
   top: 0;
   right: 0;
   display: flex;

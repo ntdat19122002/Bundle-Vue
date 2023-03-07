@@ -8,19 +8,19 @@
         <ul>
           <li class="nav-item"><router-link :to="{name:'home'}">Home</router-link></li>
           <li class="nav-item"><router-link :to="{name:'shop'}">Shop</router-link></li>
-          <li class="nav-item"><router-link :to="{name:'home'}">Contact Us</router-link></li>
+          <li class="nav-item"><router-link :to="{name:'contact'}">Contact Us</router-link></li>
           <li class="nav-item"><router-link :to="{name:'home'}">Test menu</router-link></li>
           <li class="nav-item">
-            <a href="">
+            <router-link :to="{name:'cart'}">
               <i class="fa fa-shopping-cart"></i>
               <span class="count-item mini-button">0</span>
-            </a>
+            </router-link>
           </li>
           <li class="nav-item"><a href="">Mitchel Admin</a></li>
         </ul>
       </div>
       <div class="contact">
-        <a class="button mini-button" href="contact">Contact us</a>
+        <router-link class="button mini-button" :to="{name:'contact'}">Contact us</router-link>
       </div>
     </div>
   </header>
@@ -86,5 +86,9 @@
   .contact a{
       margin-left: 24px;
       padding: 10px 12px;
+  }
+
+  .navbar .router-link-active{
+    color: rgb(35, 35, 35) !important;
   }
 </style>

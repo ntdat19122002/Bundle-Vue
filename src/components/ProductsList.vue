@@ -1,5 +1,6 @@
 <template>
-  <div class="products-list">
+  <div v-if="error" class="error">{{error}}</div>
+  <div v-if="products.length" class="products-list">
     <div v-for="product in products" :key='product.name' class="product thin-border">
       <div>
         <router-link :to="{ name:'detail', params:{id:product.id}}">
@@ -14,15 +15,25 @@
           $ {{product.price}}
         </div>
       </div>
-      
     </div>
+   
   </div>
+  <div v-else>
+    <Spinner/>
+  </div>
+   <div class="under-pagination">
+      <Pagination/>
+    </div>
 </template>
 
 <script>
 import { ref } from 'vue'
+import Spinner from './Spinner.vue'
+import Pagination from './Pagination.vue'
 export default {
+  components: { Spinner, Pagination },
   setup(){
+    const error = ref(null)
     const products = ref([])
     const load = async ()=>{
       try{
@@ -31,12 +42,12 @@ export default {
         products.value = data.products
       }
       catch(err){
-        console.log(err.meassage);
+        error.value = err.message
       }
     }
     load()
 
-    return {load,products}
+    return {load,products,error}
   }
 }
 </script>
@@ -52,7 +63,15 @@ export default {
     position: relative;
     justify-content: center;
     margin: 10px;
-    padding: 20px 20px 50px;
+    padding: 20px 20px 60px;
+  }
+
+  .product:hover{
+    box-shadow: 0 0 20px 0 rgb(0 0 0 / 10%);
+  }
+
+  .product:hover .label-product{
+    background:#E9ECEF; 
   }
 
   .product img{
@@ -63,16 +82,25 @@ export default {
   .product .label-product{
     width: 100%;
     left: 0;
-    bottom: 10px;
+    bottom: 0;
+    padding: 10px 0 15px;
     position: absolute;
     text-align: center;
   }
 
   .product-link{
+    display: inline-block;
     color: #267372;
+    margin-bottom: 8px;
   }
 
   .product:nth-child(1){
     grid-area: 1/1/3/3;
+  }
+
+  .under-pagination{
+    display: flex;
+    justify-content: center;
+    padding-bottom: 20px;
   }
 </style>
