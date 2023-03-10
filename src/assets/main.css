@@ -15,6 +15,7 @@
   border-radius: 4px;
   color: white;
   background-color: var(--mini-button);
+  padding: 10px;
 }
 
 .pp-button{
@@ -23,6 +24,7 @@
   border-radius: 4px;
   color: white;
   background-color: #7c6576;
+  height: max-content;
 }
 
 .thin-border{
