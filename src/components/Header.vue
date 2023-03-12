@@ -7,7 +7,7 @@
       <div class="navbar">
         <ul>
           <li class="nav-item"><router-link :to="{name:'home'}">Home</router-link></li>
-          <li class="nav-item"><router-link :to="{name:'shop'}">Shop</router-link></li>
+          <li class="nav-item"><router-link :to="{name:'shopPage',params:{page:1}}">Shop</router-link></li>
           <li class="nav-item"><router-link :to="{name:'contact'}">Contact Us</router-link></li>
           <li class="nav-item"><router-link :to="{name:'home'}">Test menu</router-link></li>
           <li class="nav-item">
@@ -16,7 +16,7 @@
               <span class="count-item mini-button">0</span>
             </router-link>
           </li>
-          <li class="nav-item"><a href="">Mitchel Admin</a></li>
+          <li class="nav-item"><strong>Mitchel Admin</strong></li>
         </ul>
       </div>
       <div class="contact">

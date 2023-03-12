@@ -1,19 +1,37 @@
 <template>
   <div class="pagination mx-4 flex">
-        <div class="pagination-button eraser-border-right thin-border prev-button">Prev</div>
-        <div><router-link :to="{name:'shop'}" class="pagination-button eraser-border-right thin-border">1</router-link></div>
-        <div class="pagination-button eraser-border-right thin-border">2</div>
-        <div class="pagination-button thin-border next-button">Next</div>
+        <div @click="prev" class="pagination-button eraser-border-right thin-border prev-button">Prev</div>
+        <div v-for="i in 5" :key="i">
+            <router-link :to="{name:'shopPage',params:{page:i}}" class="pagination-button eraser-border-right thin-border">{{i}}</router-link>
+        </div>
+        <div @click="next" class="pagination-button thin-border next-button">Next</div>
     </div>
 </template>
 
 <script>
+import { onMounted, reactive } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 export default {
+    setup(){
+        const route = useRoute()
+        const router = useRouter()
 
+        var page = reactive(route.params.page) 
+
+        const prev = () =>{
+            console.log(page);
+            router.push({name:'shopPage',params:{page:--page}})
+        }
+        const next = () =>{
+            console.log(page);
+            router.push({name:'shopPage',params:{page:++page}})
+        }
+        return {prev,next,onMounted}
+    }
 }
 </script>
 
-<style>
+<style scoped>
 .eraser-border-right{
     border-right: none !important;
 }
@@ -32,10 +50,15 @@ export default {
     border-bottom-right-radius: 3px;
 }
 
-.pagination .router-link-active{
+.pagination a{
     display: block;
+}
+
+.pagination .router-link-active{
     color: white ;
     background: var(--mini-button);
 }
+
+
 
 </style>

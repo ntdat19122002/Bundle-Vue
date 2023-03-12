@@ -13,12 +13,12 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/shop',
-      name: 'shop',
-      component: ShopView
+      path: '/shop/page/:page',
+      name: 'shopPage',
+      component: ShopView,
     },
     {
-      path: '/shop/:id',
+      path: '/product/:id',
       name: 'detail',
       component: DetailView,
       props: true
