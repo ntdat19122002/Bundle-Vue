@@ -6,12 +6,12 @@
                 Useful Links
             </div>
             <ul>
-                <li><a href="">Home</a></li>
+                <li><router-link :to="{name:'home'}">Home</router-link></li>
                 <li><a href="">About us</a></li>
                 <li><a href="">Product</a></li>
                 <li><a href="">Services</a></li>
                 <li><a href="">Legal</a></li>
-                <li><a href="">Contact us</a></li>
+                <li><router-link :to="{name:'contact'}">Contact us</router-link></li>
             </ul>
         </div>
         <div class="about-us">
@@ -26,9 +26,9 @@
                 Connect with us
             </div>
             <div>
-                <div><a>Contact us</a></div>
-                <div><a>info@yourcompany.example.com</a></div>
-                <div><a>+1 (650) 555-0111</a></div>
+                <div><router-link :to="{name:'contact'}">Contact us</router-link></div>
+                <div><a href="mailto: someone@example.com">info@yourcompany.example.com</a></div>
+                <div><a href="tel:+1234567890">+1 (650) 555-0111</a></div>
             </div>
         </div>
     </div>
@@ -55,6 +55,11 @@ export default {
     .footer a{
         line-height: 24px;
         color: #66ccca;
+    }
+
+    a:hover{
+        color: #28918f;
+        text-decoration: underline;
     }
     .footer-title{
         margin-bottom: 10px;

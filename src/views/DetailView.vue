@@ -1,5 +1,5 @@
 <template>
-  <div class="product-detail">
+  <div v-if="product" class="product-detail">
     <div class="product-header">
       <!-- Title -->
       <div class="product-title">
@@ -45,19 +45,23 @@
 
         <!-- term -->
         <div class="term">
-          <div><router-link :to="{name:'home'}">Terms and Conditions</router-link> </div>
+          <div><router-link :to="{name:'term'}">Terms and Conditions</router-link> </div>
           <div>30-day money-back guarantee</div>
           <div>Shipping: 2-3 Business Days</div>
         </div>
       </div>
     </div>
   </div>
-  
+  <div v-else>
+    <Spinner/>
+  </div>
 </template>
 <script>
 import {useRouter} from 'vue-router'
 import { ref } from 'vue';
+import Spinner from '../components/Spinner.vue';
 export default {
+  components: { Spinner },
   props:['id'],
   setup(props){
     const router = useRouter()
@@ -141,20 +145,23 @@ export default {
     font-weight: 400;
     line-height: 1.5;
     width: 60px;
+    text-align: center;
+  } 
+  
+  .pp-button{
+    padding: 11px 14px;
   }
 
   .subtract-btn{
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
-  }
-
-  .pp-button{
-    padding: 11px 14px;
+    margin-right: -1px;
   }
 
   .add-btn{
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
+    margin-left: -1px;
   }
 
   .add-cart-btn{

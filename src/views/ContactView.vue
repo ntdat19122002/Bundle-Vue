@@ -14,30 +14,30 @@
         
         <form action="">
           <div>
-            <label>Your Name</label>
-            <input type="text">
+            <label>Your Name *</label>
+            <input type="text" required>
           </div>
           <div>
             <label>Phone Number</label>
             <input type="text">
           </div>
           <div>
-            <label>Email</label>
-            <input type="text">
+            <label>Email *</label>
+            <input type="text" required>
           </div>
           <div>
             <label>Your Company</label>
             <input type="text">
           </div>
           <div>
-            <label>Subject</label>
-            <input type="text">
+            <label>Subject *</label>
+            <input type="text" required>
           </div>
           <div>
             <label>Your Question</label>
             <input type="text">
           </div>
-          <button>Submit</button>
+          <button class="mini-button">Submit</button>
         </form>
       </div>
       <div class="contact-info">
@@ -75,6 +75,11 @@ export default {
       padding: 0 19.5%;
       font-size: 35px;
     }
+
+    .contact p{
+      line-height: 24px;
+    }
+
     .main-contact{
       padding: 20px 19.5%;
       display: flex;
@@ -86,6 +91,11 @@ export default {
     form{
       padding: 20px 0;
       font-size: 20px;
+    }
+
+    form button{
+      font-size: 20px;
+      margin: 10px 0 0 250px;
     }
 
     form div{

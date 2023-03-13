@@ -3,6 +3,7 @@ import HomeView from '../views/HomeView.vue'
 import ShopView from '../views/ShopView.vue'
 import NotFound from '../views/NotFound.vue'
 import DetailView from '../views/DetailView.vue'
+import TermView from '../views/TermView.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/contact',
       name: 'contact',
       component: () => import('../views/ContactView.vue')
+    },
+    {
+      path: '/term',
+      name: 'term',
+      component: TermView
     },
     {
       path: '/multiple',
