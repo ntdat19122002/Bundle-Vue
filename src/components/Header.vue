@@ -10,7 +10,7 @@
           <li class="nav-item"><router-link :to="{name:'home'}">Home</router-link></li>
           <li class="nav-item"><router-link :to="{name:'shopPage',params:{page:1}}">Shop</router-link></li>
           <li class="nav-item"><router-link :to="{name:'contact'}">Contact Us</router-link></li>
-          <li class="nav-item"><router-link :to="{name:'home'}">Test menu</router-link></li>
+          <li class="nav-item"><router-link :to="{name:'shopPage',params:{page:2}}">Test menu</router-link></li>
           <li class="nav-item">
             <router-link :to="{name:'cart'}">
               <i class="fa fa-shopping-cart"></i>

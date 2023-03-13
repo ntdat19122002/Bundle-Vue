@@ -4,7 +4,8 @@
     <div v-for="product in products" :key='product.name' class="product thin-border">
       <div>
         <router-link :to="{ name:'detail', params:{id:product.id}}">
-          <img :src="'data:image/png;base64,'+product.image" alt="Product Image">
+          <img v-if="product.image" :src="'data:image/png;base64,'+product.image" alt="Product Image">
+          <img v-else src='../assets/images/product/default.png' alt="Product Image">
         </router-link>
       </div>
       <div class="label-product">
@@ -30,14 +31,16 @@
 import { ref } from 'vue'
 import Spinner from './Spinner.vue'
 import Pagination from './Pagination.vue'
+import { useRoute } from 'vue-router'
 export default {
   components: { Spinner, Pagination },
   setup(){
+    const route = useRoute()
     const error = ref(null)
     const products = ref([])
     const load = async ()=>{
       try{
-        let data = await fetch('https://odoo.website/bundle/api')
+        let data = await fetch('https://odoo.website/bundle/api/page/'+route.params.page)
                           .then(res => res.json())
         products.value = data.products
       }

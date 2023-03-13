@@ -1,7 +1,7 @@
 <template>
   <div class="pagination mx-4 flex">
         <div @click="prev" class="pagination-button eraser-border-right thin-border prev-button pointer">Prev</div>
-        <div v-for="i in 5" :key="i">
+        <div v-for="i in 2" :key="i">
             <router-link :to="{name:'shopPage',params:{page:i}}" class="pagination-button eraser-border-right thin-border">{{i}}</router-link>
         </div>
         <div @click="next" class="pagination-button thin-border next-button pointer">Next</div>
@@ -16,17 +16,24 @@ export default {
         const route = useRoute()
         const router = useRouter()
 
-        var page = reactive(route.params.page) 
-
+        var page = reactive(route.params.page)
         const prev = () =>{
-            console.log(page);
-            router.push({name:'shopPage',params:{page:--page}})
+            if(page!=1){
+                page--;
+                router.push({name:'shopPage',params:{page:page}})
+            }
         }
         const next = () =>{
-            console.log(page);
-            router.push({name:'shopPage',params:{page:++page}})
+            if(page!=2){
+                router.push({name:'shopPage',params:{page:++page}})    
+            }
         }
         return {prev,next,onMounted}
+    },
+    watch: {
+        $route () {
+            location.reload()
+        }
     }
 }
 </script>
