@@ -1,10 +1,11 @@
 <template>
   <header>
     <div class="menu">
-      <div class="logo">
-        <a href="/"><img src="../assets/images/logo/logo.png" alt="asdf"></a>
-      </div>
+      
       <div class="navbar">
+        <div class="logo">
+          <router-link :to="{name:'home'}"><img src="../assets/images/logo/logo.png" alt="asdf"></router-link>
+        </div>
         <ul>
           <li class="nav-item"><router-link :to="{name:'home'}">Home</router-link></li>
           <li class="nav-item"><router-link :to="{name:'shopPage',params:{page:1}}">Shop</router-link></li>
@@ -16,10 +17,10 @@
               <span class="count-item mini-button">0</span>
             </router-link>
           </li>
-          <li class="nav-item"><strong>Mitchel Admin</strong></li>
         </ul>
       </div>
       <div class="contact">
+        <li class="nav-item"><strong>Mitchel Admin</strong></li>
         <router-link class="button mini-button" :to="{name:'contact'}">Contact us</router-link>
       </div>
     </div>
@@ -35,8 +36,8 @@
 
   header .menu{
     display: flex;
-    margin: 0 330px !important;
-    padding: 0 15px;
+    margin: 0 20%;
+    justify-content: space-between;
   }
 
   .menu .logo img{
@@ -66,10 +67,6 @@
     padding: 4px;
     top: 12px;
     margin-left: 2px;
-  }
-
-  .navbar .nav-item:nth-child(6){
-    margin-left: 316px;
   }
 
   .navbar .nav-item a{

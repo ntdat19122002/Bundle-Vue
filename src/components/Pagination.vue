@@ -1,10 +1,10 @@
 <template>
   <div class="pagination mx-4 flex">
-        <div @click="prev" class="pagination-button eraser-border-right thin-border prev-button">Prev</div>
+        <div @click="prev" class="pagination-button eraser-border-right thin-border prev-button pointer">Prev</div>
         <div v-for="i in 5" :key="i">
             <router-link :to="{name:'shopPage',params:{page:i}}" class="pagination-button eraser-border-right thin-border">{{i}}</router-link>
         </div>
-        <div @click="next" class="pagination-button thin-border next-button">Next</div>
+        <div @click="next" class="pagination-button thin-border next-button pointer">Next</div>
     </div>
 </template>
 

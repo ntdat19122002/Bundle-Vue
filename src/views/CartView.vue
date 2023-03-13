@@ -23,7 +23,7 @@
           price
         </div>
         <div>
-          <div class="pp-button"><router-link :to="{name:'shop'}">Continue Shopping</router-link></div>
+          <div class="pp-button"><router-link :to="{name:'shopPage',params:{page:1}}">Continue Shopping</router-link></div>
           <button>Process Checkout></button>
         </div>
       </div>
