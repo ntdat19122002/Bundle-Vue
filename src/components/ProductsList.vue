@@ -40,7 +40,7 @@ export default {
     const products = ref([])
     const load = async ()=>{
       try{
-        let data = await fetch('https://odoo.website/bundle/api/page/'+route.params.page)
+        let data = await fetch('http://localhost:8069/bundle/api/page/'+route.params.page)
                           .then(res => res.json())
         products.value = data.products
       }
