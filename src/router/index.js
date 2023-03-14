@@ -35,16 +35,6 @@ const router = createRouter({
       component: TermView
     },
     {
-      path: '/multiple',
-      name: 'multiple',
-      component: () => import('../views/MultipleView.vue')
-    },
-    {
-      path: '/tier',
-      name: 'tier',
-      component: () => import('../views/TierView.vue')
-    },
-    {
       path: '/cart',
       name: 'cart',
       component: () => import('../views/CartView.vue')

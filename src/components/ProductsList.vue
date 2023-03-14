@@ -55,7 +55,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
   .products-list{
     margin:30px 20%;
     display: grid;

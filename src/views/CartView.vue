@@ -18,13 +18,19 @@
     <div class="oder-process">
       <div class="cart-list">
         <div class="cart-list-header">
-          product
-          quantity
-          price
+          <div class="product">
+            product
+          </div>
+          <div class="quantity">
+            quantity
+          </div>
+          <div class="price">
+            price
+          </div>
         </div>
-        <div>
+        <div class="cart-list-btn">
           <div class="pp-button"><router-link :to="{name:'shopPage',params:{page:1}}">Continue Shopping</router-link></div>
-          <button>Process Checkout></button>
+          <button class="mini-button">Process Checkout</button>
         </div>
       </div>
       
@@ -55,20 +61,21 @@ export default {
   }
   .cart-status{
     position: relative;
-    margin: 20px;
+    margin: 30px 30px 80px;
   }
   .item-status{
     position: absolute;
     top:-7.5px;
+    text-align: center;
   }
   .item-status:nth-of-type(1){
-    left: 20%;
+    left: 15%;
   }
   .item-status:nth-of-type(2){
-    left: 50%;
+    left: 45%;
   }
   .item-status:nth-of-type(3){
-    left: 80%;
+    left: 75%;
   }
 
   .oder-process{
@@ -80,9 +87,31 @@ export default {
     border-top: 1px solid #999;
     width:70%;
   }
+  .cart-list-header{
+    display: flex;
+  }
+  .cart-list-btn{
+    margin-top: 20px;
+    display: flex;
+    justify-content:space-between;
+  }
   .cart-order{
     width: 30%;
     border: 1px solid #999;
     padding: 10px;
+  }
+
+  .pp-button a{
+    color: white;
+  }
+
+  .product{
+    width: 60%;
+  }
+  .quantity{
+    width: 20%;
+  }
+  .price{
+    width: 20%;
   }
 </style>
