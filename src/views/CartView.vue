@@ -19,6 +19,17 @@
       <div class="cart-list">
         <div class="cart-list-header">
           <div class="product">
+            Product
+          </div>
+          <div class="quantity">
+            Quantity
+          </div>
+          <div class="price">
+            Price
+          </div>
+        </div>
+        <div class="cart-list-item" v-for="product in 5" :key="product">
+          <div class="product">
             product
           </div>
           <div class="quantity">
@@ -30,19 +41,44 @@
         </div>
         <div class="cart-list-btn">
           <div class="pp-button"><router-link :to="{name:'shopPage',params:{page:1}}">Continue Shopping</router-link></div>
-          <button class="mini-button">Process Checkout</button>
+          <div class="mini-button"><router-link :to="{name:'shopPage',params:{page:1}}">Process Checkout</router-link></div>
         </div>
       </div>
-      
+
+      <!-- Cart Total -->
       <div class="cart-order">
-        order total
-        <hr>
-        Subtotal
-        Taxes
-        <hr>
-        I have a promo code
-        <div class="pp-button">
-          Process Checkout
+        <div class="title">
+          Order Total
+        </div>
+        <div class="subtotal row-order">
+          <div>
+            Subtotal:
+          </div>
+          <div>
+            $ 5,685.00
+          </div>
+        </div>
+        <div class="taxes row-order">
+          <div>
+            Taxes:
+          </div>
+          <div>
+            $ 0.00
+          </div>
+        </div>
+        <div class="total row-order">
+          <div>
+            Total:
+          </div>
+          <div>
+            $ 5,685.00
+          </div>
+        </div>
+        <div class="promotion-code">
+          I have a promo code
+        </div>
+        <div class="checkout-btn">
+          <span class="pp-button">Process Checkout</span>
         </div>
       </div>
     </div>
@@ -89,7 +125,31 @@ export default {
   }
   .cart-list-header{
     display: flex;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 2px solid #585858;
   }
+  .cart-list-item{
+    padding: 10px 0;
+    display: flex;
+  }
+  .row-order{
+    display: flex;
+    margin: 10px 0;
+    padding: 10px 0;
+  }
+  .row-order>div{
+    width: 50%;
+    text-align: end;
+  }
+  .cart-list .cart-list-item:nth-of-type(even){
+    background: rgba(0, 0, 0, 0.05);
+  }
+  .total{
+    border-top: 1px solid #000;
+    font-weight: bold;
+  }
+
   .cart-list-btn{
     margin-top: 20px;
     display: flex;
@@ -98,10 +158,16 @@ export default {
   .cart-order{
     width: 30%;
     border: 1px solid #999;
-    padding: 10px;
+    padding: 20px;
   }
 
-  .pp-button a{
+  .cart-order .title{
+    font-size: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #999;
+  }
+
+   a{
     color: white;
   }
 
@@ -110,8 +176,21 @@ export default {
   }
   .quantity{
     width: 20%;
+    text-align: center;
   }
   .price{
     width: 20%;
+    text-align: center;
   }
+
+  .promotion-code{
+    text-align: end;
+  }
+
+  .checkout-btn{
+    margin-top: 30px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
 </style>
