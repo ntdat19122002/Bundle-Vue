@@ -1,60 +1,63 @@
 <template>
-  <div v-if="product" class="product-detail">
-    <div class="product-header">
-      <!-- Title -->
-      <div class="product-title">
-        <router-link :to="{name:'shopPage',params:{page:1}}">Products</router-link> / {{ product.name }}
+  <div v-if="products" class="product-detail">
+    <div v-for="product in products" :key="product">
+
+      <div class="product-header">
+        <!-- Title -->
+        <div class="product-title">
+          <router-link :to="{name:'shopPage',params:{page:1}}">Products</router-link> / {{ product.name }}
+        </div>
+        <div class="product-search">
+          <div class="search mx-4">
+            <input type="text" name="" id="" placeholder="Search..." class="thin-border">
+              <div class="mini-button search-button">
+                  <i class="fa fa-search"></i>
+              </div>
+          </div>
+          <div class="pp-button">
+            Public Pricelist
+          </div>
+        </div>
       </div>
-      <div class="product-search">
-        <div class="search mx-4">
-           <input type="text" name="" id="" placeholder="Search..." class="thin-border">
-            <div class="mini-button search-button">
-                <i class="fa fa-search"></i>
+      <div class="add-cart">
+        <div class="cart-item-img">
+          <img v-if="product.image" :src="'data:image/png;base64,'+product.image" alt="Product Image">
+          <img v-else src='../assets/images/product/default.png' alt="Product Image">
+        </div>
+        <div class="add-cart-process">
+          <!-- Product Detail -->
+          <h1 class="product-title">{{ product.name }}</h1>
+          <div class="product-price">$ {{ product.price }}</div>
+          <div class="product-num">
+            <div class="pp-button subtract-btn" @click="num--">
+              -
             </div>
-        </div>
-        <div class="pp-button">
-          Public Pricelist
-        </div>
-      </div>
-    </div>
-    <div class="add-cart">
-      <div class="cart-item-img">
-        <img v-if="product.image" :src="'data:image/png;base64,'+product.image" alt="Product Image">
-        <img v-else src='../assets/images/product/default.png' alt="Product Image">
-      </div>
-      <div class="add-cart-process">
-        <!-- Product Detail -->
-        <h1 class="product-title">{{ product.name }}</h1>
-        <div class="product-price">$ {{ product.price }}</div>
-        <div class="product-num">
-          <div class="pp-button subtract-btn" @click="num--">
-            -
+            <div>
+              <input type="number" v-model="num">
+            </div>
+            <div class="pp-button add-btn" @click="num++">
+              +
+            </div>
           </div>
-          <div>
-            <input type="number" :value="num ">
+          <div @click="addToCart" class="mini-button add-cart-btn">
+            <i class="fa-solid fa-cart-shopping"></i> Add to Cart
           </div>
-          <div class="pp-button add-btn" @click="num++">
-            +
+          <div v-if="product.description" class="description">
+            {{ product.description }}
           </div>
-        </div>
-        <div @click="addToCart" class="mini-button add-cart-btn">
-          <i class="fa-solid fa-cart-shopping"></i> Add to Cart
-        </div>
-        <div v-if="product.description" class="description">
-          {{ product.description }}
-        </div>
 
-        <!-- Bundle -->
-        <div class="bundle">
-          <MultipleBundle/>
-          <TierBundle/> 
-        </div>
+          <!-- Bundle -->
+          <div class="bundle">
+            <MultipleBundle/>
+            <TierBundle/> 
+          </div>
 
-        <!-- term -->
-        <div class="term">
-          <div><router-link :to="{name:'term'}">Terms and Conditions</router-link> </div>
-          <div>30-day money-back guarantee</div>
-          <div>Shipping: 2-3 Business Days</div>
+          <!-- term -->
+          <div class="term">
+            <div><router-link :to="{name:'term'}">Terms and Conditions</router-link> </div>
+            <div>30-day money-back guarantee</div>
+            <div>Shipping: 2-3 Business Days</div>
+          </div>
         </div>
       </div>
     </div>
@@ -75,12 +78,12 @@ export default {
   setup(props){
     const router = useRouter()
     const num = ref(1)
-    const product = ref(null)
+    const products = ref(null)
     const load = async ()=>{
       try{
-        let data = await fetch('https://odoo.website/bundle/api/'+props.id)
+        let data = await fetch('https://odoo.website/bundle/api/product/'+props.id)
                           .then(res => res.json())
-        product.value = data
+        products.value = data.products
       }
       catch(err){
         console.log(err.meassage);
@@ -92,7 +95,7 @@ export default {
       router.push({name:'cart'})
     }
 
-    return {num,load,product,addToCart}
+    return {num,load,products,addToCart}
   }
 }
 </script>
