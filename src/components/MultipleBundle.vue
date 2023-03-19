@@ -1,17 +1,17 @@
 <template>
-    <div class="multiple-bundle" v-for="multiple_bundle in 1" :key="multiple_bundle">
+    <div class="multiple-bundle" v-for="bundle in bundle_total" :key="bundle">
         <div class="title">
-            Best seller
+            {{bundle.title}}
         </div>
-        <div class="multiple-bundle-item" v-for="multiple_bundle_item in 2" :key="multiple_bundle_item">
+        <div class="multiple-bundle-item" v-for="product in bundle.products" :key="product">
             <div>
-            <img src="" alt="Product">
-            <div class="item-title">
-                Clay plant pot
-            </div>
+                <img :src="'data:image/png;base64,'+product.image" alt="Product">
+                <div class="item-title">
+                    {{product.name}}
+                </div>
             </div>
             <div>
-            <div class="original-price">$9.99</div>
+            <div class="original-price">${{product.price}}</div>
             <div class="price-after">$8.49</div>
             </div>
         </div>
@@ -27,8 +27,16 @@
 </template>
 
 <script>
+import { ref } from 'vue'
 export default {
-
+    props:['bundle_total','bundle_each'],
+    setup(props){
+        const bundle_total = ref(props.bundle_total)
+        const bundle_each = ref(props.bundle_each)
+        bundle_total.value = bundle_total.value.concat(bundle_each.value)
+        console.log(bundle_total.value);
+        return {bundle_total}
+    }
 }
 </script>
 

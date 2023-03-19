@@ -48,8 +48,8 @@
 
           <!-- Bundle -->
           <div class="bundle">
-            <MultipleBundle/>
-            <TierBundle/> 
+            <MultipleBundle :bundle_total='product.bundle_total' :bundle_each="product.bundle_each"/>
+            <TierBundle :product="product"/> 
           </div>
 
           <!-- term -->
@@ -81,7 +81,7 @@ export default {
     const products = ref(null)
     const load = async ()=>{
       try{
-        let data = await fetch('https://odoo.website/bundle/api/product/'+props.id)
+        let data = await fetch('http://localhost:3001/bundle/api/product/'+props.id)
                           .then(res => res.json())
         products.value = data.products
       }
