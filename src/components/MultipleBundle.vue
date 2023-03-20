@@ -10,14 +10,14 @@
                     {{product.name}}
                 </div>
             </div>
-            <div>
-            <div class="original-price">${{product.price}}</div>
-            <div class="price-after">$8.49</div>
+            <div v-if="bundle.discount_type!='total_fix' || bundle.discount_type!='hard_fix'">
+                <div class="original-price">${{product.price}}</div>
+                <div class="price-after">${{product.price_after}}</div>
             </div>
         </div>
         <div class="add-bundle">
             <div class="bundle-price">
-                Total <span class="price-after">$25.48</span> <span class="original-price">29.98</span>
+                Total <span class="price-after">${{ bundle.sale_total}}</span> <span class="original-price">${{ bundle.total }}</span>
             </div>
             <button class="add-bundle-button">
                 ADD BUNDLE
@@ -34,7 +34,6 @@ export default {
         const bundle_total = ref(props.bundle_total)
         const bundle_each = ref(props.bundle_each)
         bundle_total.value = bundle_total.value.concat(bundle_each.value)
-        console.log(bundle_total.value);
         return {bundle_total}
     }
 }

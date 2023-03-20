@@ -28,7 +28,7 @@ export default {
     props:['product'],
     setup(props){
         const product = ref(props.product);
-        return product
+        return {product}
     }
 }
 </script>

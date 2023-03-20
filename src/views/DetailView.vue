@@ -33,13 +33,13 @@
               -
             </div>
             <div>
-              <input type="number" v-model="num">
+              <input type="number" v-model="num"/>
             </div>
             <div class="pp-button add-btn" @click="num++">
               +
             </div>
           </div>
-          <div @click="addToCart" class="mini-button add-cart-btn">
+          <div @click="addToCart(product.id)" class="mini-button add-cart-btn">
             <i class="fa-solid fa-cart-shopping"></i> Add to Cart
           </div>
           <div v-if="product.description" class="description">
@@ -68,7 +68,7 @@
 </template>
 <script>
 import {useRouter} from 'vue-router'
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import Spinner from '../components/Spinner.vue';
 import MultipleBundle from '../components/MultipleBundle.vue';
 import TierBundle from '../components/TierBundle.vue';
@@ -81,7 +81,7 @@ export default {
     const products = ref(null)
     const load = async ()=>{
       try{
-        let data = await fetch('http://localhost:3001/bundle/api/product/'+props.id)
+        let data = await fetch('https://odoo.website/bundle/api/product/'+props.id)
                           .then(res => res.json())
         products.value = data.products
       }
@@ -91,9 +91,24 @@ export default {
     }
     load()
 
-    const addToCart = () => {
+    const addToCart = (id) => {
+      fetch('https://odoo.website/add-to-cart', {
+        method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ 'params':{"id": id ,"quantity":num.value}})
+      })
       router.push({name:'cart'})
     }
+
+    watch(num, ()=>{
+      console.log(1);
+      if(num.value<0){
+        num.value = 0
+      }
+    })
 
     return {num,load,products,addToCart}
   }
@@ -146,6 +161,10 @@ export default {
     padding: 10px 0;
     font-size: 24px;
     font-weight: bold;
+  }
+
+  .add-cart-btn{
+    margin-bottom: 10px;
   }
 
   /* Number of product */
