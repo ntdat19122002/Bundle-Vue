@@ -28,15 +28,22 @@
             Price
           </div>
         </div>
-        <div class="cart-list-item" v-for="product in 5" :key="product">
+        <div class="cart-list-item" v-for="cart_line in cart_lines" :key="cart_line">
           <div class="product">
-            product
+            <img v-if="cart_line.product.image" :src="'data:image/png;base64,'+ cart_line.product.image" alt="Product Image">
+            <img v-else src='../assets/images/product/default.png' alt="Product Image">
+            {{ cart_line.product.name }}
           </div>
           <div class="quantity">
-            quantity
+            <div class="change-quantity-btn" @click="reduceQuantity(cart_line)">-</div>
+            <input @change="changeQuantity(cart_line.id,cart_line.quantity)" type="number" v-model="cart_line.quantity">
+            <div class="change-quantity-btn" @click="addQuantity(cart_line)">+</div>
           </div>
           <div class="price">
-            price
+            $ {{ cart_line.product.price }}
+          </div>
+          <div @click="deleteCartLine(cart_line.id)" class="delete">
+            <i class="fa-solid fa-trash"></i>
           </div>
         </div>
         <div class="cart-list-btn">
@@ -55,12 +62,12 @@
             Subtotal:
           </div>
           <div>
-            $ 5,685.00
+            $ {{ total }}
           </div>
         </div>
         <div class="taxes row-order">
           <div>
-            Taxes:
+            Discount:
           </div>
           <div>
             $ 0.00
@@ -71,7 +78,7 @@
             Total:
           </div>
           <div>
-            $ 5,685.00
+            $ {{ total }}
           </div>
         </div>
         <div class="promotion-code">
@@ -86,8 +93,57 @@
 </template>
 
 <script>
+import { ref, watch } from 'vue'
 export default {
-  
+  setup(props){
+    const cart_lines = ref(null)
+    const total = ref(0)
+    const load = async ()=>{
+      try{
+        let data = await fetch('https://odoo.website/cart')
+                          .then(res => res.json())
+        cart_lines.value = data.cart_lines
+        total.value = data.total
+      }
+      catch(err){
+        console.log(err.meassage);
+      }
+    }
+    load()
+
+    const deleteCartLine = async (id) => {
+      try{
+        await fetch('https://odoo.website/delete-cart-line/'+id)
+        load()
+      }
+      catch(err){
+        console.log(err.meassage);
+      }
+    }
+
+    const reduceQuantity = (cart_line) => {
+      changeQuantity(cart_line.id,--cart_line.quantity)
+    }
+
+    const addQuantity = (cart_line) => {
+      changeQuantity(cart_line.id,++cart_line.quantity)
+    }
+
+    const changeQuantity = async(id,quantity) => {
+      if(quantity<=0){
+        deleteCartLine(id)
+        load()
+      }
+      else{
+        await fetch('https://odoo.website/update-cart-line/'+id+'/quantity/'+quantity)
+        .catch(err=>{
+          console.log(err);
+        })
+        load()
+      }
+    }
+    return {load,cart_lines,total,deleteCartLine,changeQuantity,reduceQuantity,addQuantity}
+  }
 }
 </script>
 
@@ -128,6 +184,13 @@ export default {
     font-weight: bold;
     padding: 10px;
     border-bottom: 2px solid #585858;
+  }
+  .cart-list-header .quantity{
+    transform: translateX(-13px);
+  }
+  .cart-list-header .quantity, .cart-list-header .price{
+    display: flex;
+    justify-content: center;
   }
   .cart-list-item{
     padding: 10px 0;
@@ -172,15 +235,49 @@ export default {
   }
 
   .product{
-    width: 60%;
+    width: 50%;
+    display: flex;
+  }
+
+  .product img{
+    width: 60px;
+    height: 40px;
+    margin: 0 10px;
   }
   .quantity{
-    width: 20%;
+    display: flex;
+    width: 25%;
+    text-align: center;
+  }
+
+  .quantity .change-quantity-btn{
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .quantity .change-quantity-btn:nth-child(1){
+    font-size: 34px;
+  }
+
+  .quantity input{
+    margin: 0 10px;
+    font-size: 14px;
+    width: 60%;
     text-align: center;
   }
   .price{
     width: 20%;
-    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .delete{
+    width: 5%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 
   .promotion-code{

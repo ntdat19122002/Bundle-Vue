@@ -13,7 +13,7 @@
           <li class="nav-item">
             <router-link :to="{name:'cart'}">
               <i class="fa fa-shopping-cart"></i>
-              <span class="count-item mini-button">0</span>
+              <span class="count-item mini-button">{{length_cart}}</span>
             </router-link>
           </li>
         </ul>
@@ -25,6 +25,23 @@
     </div>
   </header>
 </template>
+
+<script>
+import { ref } from 'vue'
+export default {
+  setup(){
+    const length_cart = ref(0)
+    const load = async () => {
+      length_cart.value  = await fetch('https://odoo.website/length-cart')
+                        .then(res => res.json())
+                        .then(data => data.length)
+    }
+    load()
+    return {length_cart}
+  }
+}
+</script>
+
 
 <style scoped>
   header{

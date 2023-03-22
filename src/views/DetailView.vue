@@ -91,8 +91,8 @@ export default {
     }
     load()
 
-    const addToCart = (id) => {
-      fetch('https://odoo.website/add-to-cart', {
+    const addToCart = async (id) => {
+      await fetch('https://odoo.website/add-to-cart', {
         method: 'POST',
         headers: {
             'Accept': 'application/json',

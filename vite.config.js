@@ -5,6 +5,9 @@ import vue from '@vitejs/plugin-vue'
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build:{
+    outDir:'../../../odoo-dev/odoo_test/local-addons/bundle/static/html'
+  },
   plugins: [vue()],
   resolve: {
     alias: {

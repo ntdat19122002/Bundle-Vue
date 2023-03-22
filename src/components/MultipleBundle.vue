@@ -19,7 +19,7 @@
             <div class="bundle-price">
                 Total <span class="price-after">${{ bundle.sale_total}}</span> <span class="original-price">${{ bundle.total }}</span>
             </div>
-            <button class="add-bundle-button">
+            <button class="add-bundle-button" @click='addBundleToCart(bundle.id)'>
                 ADD BUNDLE
             </button>
         </div>
@@ -28,13 +28,20 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 export default {
     props:['bundle_total','bundle_each'],
     setup(props){
+        const router = useRouter()
         const bundle_total = ref(props.bundle_total)
         const bundle_each = ref(props.bundle_each)
         bundle_total.value = bundle_total.value.concat(bundle_each.value)
-        return {bundle_total}
+
+        const addBundleToCart = async (id) =>{
+            await fetch('https://odoo.website/add-bundle-to-cart/'+id)
+            router.push({name:'cart'})
+        }
+        return {bundle_total,addBundleToCart}
     }
 }
 </script>

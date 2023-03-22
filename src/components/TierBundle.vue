@@ -11,7 +11,7 @@
             <div>
                 <div class="title">{{ product.name }}</div>
                 <div class="range-list">
-                    <div class="range-list-item" v-for="qty in bundle.qty" :key="qty">
+                    <div class="range-list-item" v-for="qty in bundle.qty" :key="qty" @click="addToCart(product.id,qty.start)">
                         <div class="title-range">Add {{qty.start}}<span v-if="qty.end">-{{qty.end}}</span> items</div>
                         <div class="value-discount">Get {{qty.discount_value}}% off</div>
                         <div v-if="qty.highlight_enable" class="highlight">Most Popular</div>
@@ -24,11 +24,26 @@
 
 <script>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router';
 export default {
     props:['product'],
     setup(props){
+        const router = useRouter()
         const product = ref(props.product);
-        return {product}
+
+        const addToCart = async (id, quantity) => {
+        await fetch('https://odoo.website/add-to-cart', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 'params':{"id": id ,"quantity":quantity}})
+        })
+        router.push({name:'cart'})
+        }
+        
+        return {product,addToCart}
     }
 }
 </script>
