@@ -17,38 +17,49 @@
     </div>
     <div class="oder-process">
       <div class="cart-list">
-        <div class="cart-list-header">
-          <div class="product">
-            Product
+        <div v-if="cart_lines && cart_lines.length>0"> 
+          <div class="cart-list-header">
+            <div class="product">
+              Product
+            </div>
+            <div class="quantity">
+              Quantity
+            </div>
+            <div class="price">
+              Price
+            </div>
           </div>
-          <div class="quantity">
-            Quantity
-          </div>
-          <div class="price">
-            Price
+          <div class="cart-list-item" v-for="cart_line in cart_lines" :key="cart_line">
+            <div class="product">
+              <img v-if="cart_line.product.image" :src="'data:image/png;base64,'+ cart_line.product.image" alt="Product Image">
+              <img v-else src='../assets/images/product/default.png' alt="Product Image">
+              {{ cart_line.product.name }}
+            </div>
+            <div class="quantity">
+              <div class="change-quantity-btn" @click="reduceQuantity(cart_line)">-</div>
+              <input @change="changeQuantity(cart_line.id,cart_line.quantity)" type="number" v-model="cart_line.quantity">
+              <div class="change-quantity-btn" @click="addQuantity(cart_line)">+</div>
+            </div>
+            <div class="price">
+              $ {{ cart_line.product.price }}
+            </div>
+            <div @click="deleteCartLine(cart_line.id)" class="delete">
+              <i class="fa-solid fa-trash"></i>
+            </div>
           </div>
         </div>
-        <div class="cart-list-item" v-for="cart_line in cart_lines" :key="cart_line">
-          <div class="product">
-            <img v-if="cart_line.product.image" :src="'data:image/png;base64,'+ cart_line.product.image" alt="Product Image">
-            <img v-else src='../assets/images/product/default.png' alt="Product Image">
-            {{ cart_line.product.name }}
-          </div>
-          <div class="quantity">
-            <div class="change-quantity-btn" @click="reduceQuantity(cart_line)">-</div>
-            <input @change="changeQuantity(cart_line.id,cart_line.quantity)" type="number" v-model="cart_line.quantity">
-            <div class="change-quantity-btn" @click="addQuantity(cart_line)">+</div>
-          </div>
-          <div class="price">
-            $ {{ cart_line.product.price }}
-          </div>
-          <div @click="deleteCartLine(cart_line.id)" class="delete">
-            <i class="fa-solid fa-trash"></i>
-          </div>
+        <div v-else>
+          You haven't bought any product
         </div>
+
         <div class="cart-list-btn">
           <div class="pp-button"><router-link :to="{name:'shopPage',params:{page:1}}">Continue Shopping</router-link></div>
           <div class="mini-button"><router-link :to="{name:'shopPage',params:{page:1}}">Process Checkout</router-link></div>
+        </div>
+
+        <!-- bundle discount -->
+        <div class="bundle-discount">
+          <div v-for="bundle in bundles" :key='bundle'>{{bundle.title}}</div>
         </div>
       </div>
 
@@ -70,7 +81,7 @@
             Discount:
           </div>
           <div>
-            $ 0.00
+            $ {{ discount_total }}
           </div>
         </div>
         <div class="total row-order">
@@ -78,7 +89,7 @@
             Total:
           </div>
           <div>
-            $ {{ total }}
+            $ {{ total - discount_total}}
           </div>
         </div>
         <div class="promotion-code">
@@ -95,15 +106,19 @@
 <script>
 import { ref, watch } from 'vue'
 export default {
-  setup(props){
+   setup(props){
     const cart_lines = ref(null)
+    const bundles = ref(null)
     const total = ref(0)
+    const discount_total = ref(0)
     const load = async ()=>{
       try{
         let data = await fetch('https://odoo.website/cart')
                           .then(res => res.json())
         cart_lines.value = data.cart_lines
+        bundles.value = data.bundles
         total.value = data.total
+        discount_total.value = data.discount_total.toFixed(2)
       }
       catch(err){
         console.log(err.meassage);
@@ -142,7 +157,7 @@ export default {
         load()
       }
     }
-    return {load,cart_lines,total,deleteCartLine,changeQuantity,reduceQuantity,addQuantity}
+    return {load,cart_lines,bundles,discount_total,total,deleteCartLine,changeQuantity,reduceQuantity,addQuantity}
   }
 }
 </script>
