@@ -1,7 +1,7 @@
 <template>
     <div class="multiple-bundle" v-for="bundle in bundle_total" :key="bundle">
         <div class="title">
-            {{bundle.title}}
+            {{bundle.title}} <span v-if="bundle.quantity">x {{bundle.quantity}}</span>
         </div>
         <div class="multiple-bundle-item" v-for="product in bundle.products" :key="product">
             <div>
@@ -39,6 +39,7 @@ export default {
 
         const addBundleToCart = async (id) =>{
             await fetch('https://odoo.website/add-bundle-to-cart/'+id)
+            router.go(1)
             router.push({name:'cart'})
         }
         return {bundle_total,addBundleToCart}

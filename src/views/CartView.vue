@@ -58,9 +58,21 @@
         </div>
 
         <!-- bundle discount -->
-        <div class="bundle-discount">
-          <div v-for="bundle in bundles" :key='bundle'>{{bundle.title}}</div>
-        </div>
+          <div class="bundle" v-if="bundles && bundles.bundle_total">
+            <MultipleBundle :bundle_total='bundles.bundle_total' :bundle_each="bundles.bundle_each"/>
+            <div v-for="bundle in bundles.bundle_tier" :key="bundle">
+              <div v-for="product in bundle.product" :key="product" class="tier-bundle">
+                <TierBundle 
+                  :product_image="product.image" 
+                  :product_id="product.id" 
+                  :product_name="product.name" 
+                  :bundle_title="bundle.title"
+                  :qtys="product.qty"
+                /> 
+              </div>
+            </div>
+            
+          </div>
       </div>
 
       <!-- Cart Total -->
@@ -105,7 +117,10 @@
 
 <script>
 import { ref, watch } from 'vue'
+import MultipleBundle from '../components/MultipleBundle.vue'
+import TierBundle from '../components/TierBundle.vue'
 export default {
+  components: { MultipleBundle, TierBundle },
    setup(props){
     const cart_lines = ref(null)
     const bundles = ref(null)
@@ -234,6 +249,7 @@ export default {
     justify-content:space-between;
   }
   .cart-order{
+    height: fit-content;
     width: 30%;
     border: 1px solid #999;
     padding: 20px;
@@ -305,4 +321,9 @@ export default {
     justify-content: flex-end;
   }
 
+  .bundle{
+    margin-top: 20px;
+    float: right;
+    width: 60%;
+  }
 </style>

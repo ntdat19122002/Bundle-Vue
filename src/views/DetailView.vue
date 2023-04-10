@@ -49,7 +49,15 @@
           <!-- Bundle -->
           <div class="bundle">
             <MultipleBundle :bundle_total='product.bundle_total' :bundle_each="product.bundle_each"/>
-            <TierBundle :product="product"/> 
+            <div class="tier-bundle" v-for="bundle in product.bundle_tier" :key="bundle">
+              <TierBundle 
+                :product_image="product.image" 
+                :product_name="product.name" 
+                :product_id="product.id" 
+                :bundle_title="bundle.title"
+                :qtys="bundle.qty"
+              /> 
+            </div>
           </div>
 
           <!-- term -->

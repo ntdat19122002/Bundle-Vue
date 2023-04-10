@@ -1,22 +1,22 @@
 <template>
-    <div class="tier-bundle" v-for="bundle in product.bundle_tier" :key="bundle">
-        <div class="title">
-            {{bundle.title}}
+    <div class="title">
+        {{bundle_title}}
+    </div>
+    <div class="tier-bundle-item">
+        <div class="tier-img">
+            <img v-if="product_image" :src="'data:image/png;base64,'+product_image" alt="Product Image">
+            <img v-else src='../assets/images/product/default.png' alt="Product Image">
         </div>
-        <div class="tier-bundle-item">
-            <div class="tier-img">
-                <img v-if="product.image" :src="'data:image/png;base64,'+product.image" alt="Product Image">
-                <img v-else src='../assets/images/product/default.png' alt="Product Image">
-            </div>
-            <div>
-                <div class="title">{{ product.name }}</div>
-                <div class="range-list">
-                    <div class="range-list-item" v-for="qty in bundle.qty" :key="qty" @click="addToCart(product.id,qty.start)">
-                        <div class="title-range">Add {{qty.start}}<span v-if="qty.end">-{{qty.end}}</span> items</div>
-                        <div class="value-discount">Get {{qty.discount_value}}% off</div>
-                        <div v-if="qty.highlight_enable" class="highlight">Most Popular</div>
-                    </div>
+        <div>
+            <div class="title">{{ product_name }}</div>
+            <div class="range-list">
+                <div class="range-list-item" v-for="qty in qtys" :key="qty" @click="addToCart(product_id,qty.start)">
+                    <div class="title-range">Add {{qty.start}}<span v-if="qty.end">-{{qty.end}}</span> items</div>
+                    <div class="value-discount">Get {{qty.discount_value}}% off</div>
+                    <div v-if="qty.highlight_enable" class="highlight">Most Popular</div>
+                    <span v-if="qty.num"> x {{ qty.num }}</span>
                 </div>
+                
             </div>
         </div>
     </div>
@@ -26,10 +26,15 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router';
 export default {
-    props:['product'],
+    props:['product_image','product_id','product_name','bundle_tier','bundle_title','qtys','num'],
     setup(props){
         const router = useRouter()
-        const product = ref(props.product);
+        const product_image = ref(props.product_image);
+        const product_id = ref(props.product_id);
+        const product_name = ref(props.product_name);
+        const bundle_title = ref(props.bundle_title)
+        const qtys = ref(props.qtys)
+        const num = ref(props.num)
 
         const addToCart = async (id, quantity) => {
         await fetch('https://odoo.website/add-to-cart', {
@@ -43,7 +48,7 @@ export default {
         router.push({name:'cart'})
         }
         
-        return {product,addToCart}
+        return {product_image,product_id,product_name,bundle_title,qtys,addToCart,num}
     }
 }
 </script>
